@@ -18,4 +18,8 @@ public class Rasterization {
             for (int col = x; col < x + width; ++col)
                 pixelWriter.setColor(col, row, color);
     }
+
+    public static void drawArc(){
+
+    }
 }
