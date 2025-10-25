@@ -19,7 +19,12 @@ public class Rasterization {
                 pixelWriter.setColor(col, row, color);
     }
 
+    public static Color interpolate(){
+
+    }
+
     public static void drawArc(){
 
     }
+
 }
