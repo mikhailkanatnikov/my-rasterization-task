@@ -12,21 +12,11 @@ public class Rasterization {
             final GraphicsContext graphicsContext,
             final double centerX, final double centerY,
             final double radius,
-            double startAngle, double endAngle,  // убрал final
+            double startAngle, double endAngle,
             final Color startColor, final Color endColor)
     {
         final PixelWriter pixelWriter = graphicsContext.getPixelWriter();
 
-        // ИНВЕРТИРУЕМ УГЛЫ для JavaFX (ось Y вниз)
-        startAngle = -startAngle;
-        endAngle = -endAngle;
-
-        // НОРМАЛИЗУЕМ УГЛЫ - чтобы startAngle был меньше endAngle
-        if (startAngle > endAngle) {
-            double temp = startAngle;
-            startAngle = endAngle;
-            endAngle = temp;
-        }
 
         final double totalAngle = endAngle - startAngle;
         final double angleStep = 1.0 / radius;
@@ -39,7 +29,6 @@ public class Rasterization {
             pixelWriter.setColor((int) Math.round(x), (int) Math.round(y),
                     interpolate(startColor, endColor, t));
         }
-
     }
 
     public static Color interpolate(Color startColor, Color endColor, double t){
