@@ -1,3 +1,6 @@
+/**
+ * это тупо для того чтобы запускать
+ */
 package com.cgvsu.rasterizationfxapp;
 
 import javafx.application.Application;
@@ -19,5 +22,6 @@ public class RasterizationApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+
     }
 }

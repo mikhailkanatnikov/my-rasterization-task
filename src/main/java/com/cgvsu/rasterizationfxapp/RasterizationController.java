@@ -20,8 +20,15 @@ public class RasterizationController {
         anchorPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> canvas.setWidth(newValue.doubleValue()));
         anchorPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> canvas.setHeight(newValue.doubleValue()));
 
-        Rasterization.drawRectangle(canvas.getGraphicsContext2D(), 200, 300, 200, 100, Color.CHOCOLATE);
-        Rasterization.drawRectangle(canvas.getGraphicsContext2D(), 250, 250, 50, 200, Color.AQUA);
+        // 1. Простая дуга - четверть круга от красного к синему
+        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 100, 100, 50, 0, Math.PI/2, Color.RED, Color.BLUE);
+
+        // 2. Полукруг - от зеленого к желтому
+        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 300, 150, 80, 0, Math.PI, Color.GREEN, Color.YELLOW);
+
+        // 3.
+        // От левого (180°) до верхнего (270°) ЧЕРЕЗ полный круг
+        Rasterization.drawArc(canvas.getGraphicsContext2D(), 400, 50, 65, 0,Math.PI/2, Color.RED, Color.BLUE);
     }
 
 }

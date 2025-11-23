@@ -6,25 +6,48 @@ import javafx.scene.paint.Color;
 
 public class Rasterization {
 
-    public static void drawRectangle(
+
+
+    public static void drawArc(
             final GraphicsContext graphicsContext,
-            final int x, final int y,
-            final int width, final int height,
-            final Color color)
+            final double centerX, final double centerY,
+            final double radius,
+            double startAngle, double endAngle,  // убрал final
+            final Color startColor, final Color endColor)
     {
         final PixelWriter pixelWriter = graphicsContext.getPixelWriter();
 
-        for (int row = y; row < y + height; ++row)
-            for (int col = x; col < x + width; ++col)
-                pixelWriter.setColor(col, row, color);
+        // ИНВЕРТИРУЕМ УГЛЫ для JavaFX (ось Y вниз)
+        startAngle = -startAngle;
+        endAngle = -endAngle;
+
+        // НОРМАЛИЗУЕМ УГЛЫ - чтобы startAngle был меньше endAngle
+        if (startAngle > endAngle) {
+            double temp = startAngle;
+            startAngle = endAngle;
+            endAngle = temp;
+        }
+
+        final double totalAngle = endAngle - startAngle;
+        final double angleStep = 1.0 / radius;
+
+        for (double angle = startAngle; angle <= endAngle; angle += angleStep) {
+            double x = centerX + radius * Math.cos(angle);
+            double y = centerY + radius * Math.sin(angle);
+            double t = (angle - startAngle) / totalAngle;
+
+            pixelWriter.setColor((int) Math.round(x), (int) Math.round(y),
+                    interpolate(startColor, endColor, t));
+        }
+
     }
 
-    public static Color interpolate(){
+    public static Color interpolate(Color startColor, Color endColor, double t){
 
-    }
-
-    public static void drawArc(){
-
+        double r = startColor.getRed() + (endColor.getRed() - startColor.getRed()) * t;
+        double g = startColor.getGreen() + (endColor.getGreen() - startColor.getGreen()) * t;
+        double b = startColor.getBlue() + (endColor.getBlue() - startColor.getBlue()) * t;
+        return new Color(r, g, b, 1.0);
     }
 
 }
