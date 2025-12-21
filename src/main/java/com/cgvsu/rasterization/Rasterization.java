@@ -7,75 +7,48 @@ import javafx.scene.paint.Color;
 public class Rasterization {
 
 
-/*
-        public static void drawArc(
-                final GraphicsContext graphicsContext,
-                final double centerX, final double centerY,
-                final double radius,
-                double startAngle, double endAngle,
-                final Color startColor, final Color endColor)
-        {
-            final PixelWriter pixelWriter = graphicsContext.getPixelWriter();
+    public static void drawArc(
+            final GraphicsContext graphicsContext,
+            final double centerX, final double centerY,
+            final double radius,
+            double startAngle, double endAngle,
+            final Color startColor, final Color endColor) {
+
+        final PixelWriter pixelWriter = graphicsContext.getPixelWriter();
+
+        int xc = (int) Math.round(centerX);
+        int yc = (int) Math.round(centerY);
+        int r = (int) Math.round(radius);
 
 
-            final double totalAngle = endAngle - startAngle;
-            final double angleStep = 1.0 / radius;
+        if (endAngle < startAngle) {
+            endAngle += 2 * Math.PI;
+        }
 
-            for (double angle = startAngle; angle <= endAngle; angle += angleStep) {
-                double x = centerX + radius * Math.cos(angle);
-                double y = centerY + radius * Math.sin(angle);
-                double delta = (angle - startAngle) / totalAngle;
+        int x = 0;
+        int y = r;
+        int d = 3 - 2 * r;
 
-                pixelWriter.setColor((int) Math.round(x), (int) Math.round(y),
-                        interpolate(startColor, endColor, delta));
+        while (x <= y) {
+
+            drawPointIfInArc(pixelWriter, xc, yc, x, y, startAngle, endAngle, startColor, endColor);
+            drawPointIfInArc(pixelWriter, xc, yc, y, x, startAngle, endAngle, startColor, endColor);
+            drawPointIfInArc(pixelWriter, xc, yc, -x, y, startAngle, endAngle, startColor, endColor);
+            drawPointIfInArc(pixelWriter, xc, yc, -y, x, startAngle, endAngle, startColor, endColor);
+            drawPointIfInArc(pixelWriter, xc, yc, -x, -y, startAngle, endAngle, startColor, endColor);
+            drawPointIfInArc(pixelWriter, xc, yc, -y, -x, startAngle, endAngle, startColor, endColor);
+            drawPointIfInArc(pixelWriter, xc, yc, x, -y, startAngle, endAngle, startColor, endColor);
+            drawPointIfInArc(pixelWriter, xc, yc, y, -x, startAngle, endAngle, startColor, endColor);
+
+            if (d < 0) {
+                d = d + 4 * x + 6;
+            } else {
+                d = d + 4 * (x - y) + 10;
+                y--;
             }
+            x++;
         }
-
- */
-
-
-
-public static void drawArc(
-        final GraphicsContext graphicsContext,
-        final double centerX, final double centerY,
-        final double radius,
-        double startAngle, double endAngle,
-        final Color startColor, final Color endColor)
-{
-    final PixelWriter pixelWriter = graphicsContext.getPixelWriter();
-
-    int xc = (int)centerX;
-    int yc = (int) centerY;
-    int r = (int) radius;
-
-
-
-    if (endAngle < startAngle){ endAngle += 2*Math.PI;}
-
-    int x = 0;
-    int y = r;
-    int d = 3 - 2 * r;
-
-    while (x <= y) {
-
-        drawPointIfInArc(pixelWriter, xc, yc, x, y, startAngle, endAngle, startColor, endColor);
-        drawPointIfInArc(pixelWriter, xc, yc, y, x, startAngle, endAngle, startColor, endColor);
-        drawPointIfInArc(pixelWriter, xc, yc, -x, y, startAngle, endAngle, startColor, endColor);
-        drawPointIfInArc(pixelWriter, xc, yc, -y, x, startAngle, endAngle, startColor, endColor);
-        drawPointIfInArc(pixelWriter, xc, yc, -x, -y, startAngle, endAngle, startColor, endColor);
-        drawPointIfInArc(pixelWriter, xc, yc, -y, -x, startAngle, endAngle, startColor, endColor);
-        drawPointIfInArc(pixelWriter, xc, yc, x, -y, startAngle, endAngle, startColor, endColor);
-        drawPointIfInArc(pixelWriter, xc, yc, y, -x, startAngle, endAngle, startColor, endColor);
-
-        if (d < 0) {
-            d = d + 4 * x + 6;
-        } else {
-            d = d + 4 * (x - y) + 10;
-            y--;
-        }
-        x++;
     }
-}
 
     private static void drawPointIfInArc(
             PixelWriter pixelWriter,
@@ -98,7 +71,7 @@ public static void drawArc(
     }
 
 
-    public static Color interpolate(Color startColor, Color endColor, double delta){
+    public static Color interpolate(Color startColor, Color endColor, double delta) {
 
         //getRed --> 1.0
         double r = startColor.getRed() + (endColor.getRed() - startColor.getRed()) * delta;
