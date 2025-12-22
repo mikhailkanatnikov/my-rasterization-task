@@ -16,14 +16,16 @@ public class Rasterization {
 
         final PixelWriter pixelWriter = graphicsContext.getPixelWriter();
 
-        int xc = (int) Math.round(centerX);
-        int yc = (int) Math.round(centerY);
-        int r = (int) Math.round(radius);
+        int xc = (int) (centerX);
+        int yc = (int) (centerY);
+        int r = (int) (radius);
 
-
+        /*
         if (endAngle < startAngle) {
             endAngle += 2 * Math.PI;
         }
+
+         */
 
         int x = 0;
         int y = r;
@@ -56,6 +58,7 @@ public class Rasterization {
             double startAngle, double endAngle,
             Color startColor, Color endColor) {
 
+        //конкретные точки
         int px = xc + dx;
         int py = yc + dy;
 
@@ -66,6 +69,7 @@ public class Rasterization {
 
         if (angle >= startAngle && angle <= endAngle) {
             double delta = (angle - startAngle) / (endAngle - startAngle);
+
             pixelWriter.setColor(px, py, interpolate(startColor, endColor, delta));
         }
     }

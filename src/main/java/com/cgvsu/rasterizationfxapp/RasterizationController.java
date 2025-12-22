@@ -20,25 +20,17 @@ public class RasterizationController {
         anchorPane.prefWidthProperty().addListener((ov, oldValue, newValue) -> canvas.setWidth(newValue.doubleValue()));
         anchorPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> canvas.setHeight(newValue.doubleValue()));
 
-        // 1. Простая дуга - четверть круга от красного к синему
-        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 100, 100, 50, 0, Math.PI/2, Color.RED, Color.BLUE);
+        // 1. Полная окружность
+        Rasterization.drawArc(canvas.getGraphicsContext2D(), 200, 100, 100, 0, Math.PI*2, Color.RED, Color.BLUE);
 
-        // 2. Полукруг - от зеленого к желтому
-        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 300, 150, 80, 0, Math.PI, Color.GREEN, Color.ORANGE);
+        //2. Пол окружности
+        Rasterization.drawArc(canvas.getGraphicsContext2D(), 400, 100, 50, 0, Math.PI, Color.RED, Color.GREEN);
 
-        // 3.
-        // от 0 до 3п/2
-        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 500, 200, 65, 0,3*Math.PI/2, Color.RED, Color.BLUE);
+        //3. Четверть окружности
+        Rasterization.drawArc(canvas.getGraphicsContext2D(), 600, 100, 85, 0, Math.PI/2, Color.BLUE, Color.PINK);
 
-        // 4.
-        // от 5п/6 до 11 п/6
-        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 550, 400, 70, 5*Math.PI/6,11*Math.PI/6, Color.RED, Color.BLUE);
-
-        // 5.
-        // полный круг
-        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 200, 350, 90, 0,2*Math.PI, Color.RED, Color.BLUE);
-
-        Rasterization.drawArc(canvas.getGraphicsContext2D(), 200, 350, 90, 0,Math.PI/2, Color.RED, Color.BLUE);
+        //4. Отрицательный угол
+        Rasterization.drawArc(canvas.getGraphicsContext2D(), 600, 400, 85, Math.PI/2, 0, Color.BLUE, Color.PINK);
 
     }
 
