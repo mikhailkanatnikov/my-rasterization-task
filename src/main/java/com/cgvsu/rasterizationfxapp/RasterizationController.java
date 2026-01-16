@@ -21,19 +21,23 @@ public class RasterizationController {
         anchorPane.prefHeightProperty().addListener((ov, oldValue, newValue) -> canvas.setHeight(newValue.doubleValue()));
 
         // 1. Полная окружность
-        Rasterization.drawArc(canvas.getGraphicsContext2D(), 200, 100, 100, 0, Math.PI*2, Color.RED, Color.BLUE);
+        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 200, 100, 100, 0, Math.PI*2, Color.RED, Color.BLUE);
 
         //2. Пол окружности работает
-        Rasterization.drawArc(canvas.getGraphicsContext2D(), 400, 100, 50, 0, Math.PI, Color.RED, Color.BLUE);
+        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 400, 100, 50, 0, Math.PI, Color.RED, Color.BLUE);
 
         //3. Четверть окружности работает
-        Rasterization.drawArc(canvas.getGraphicsContext2D(), 600, 100, 85, 0, Math.PI/2, Color.BLUE, Color.RED);
+        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 600, 100, 85, 0, Math.PI/2, Color.BLUE, Color.RED);
 
         //4 пол дуги от -п/2 до п/2 //кривая интерполяция
-        Rasterization.drawArc(canvas.getGraphicsContext2D(), 600, 350, 85, -1*Math.PI/2, Math.PI/2, Color.BLUE, Color.RED);
+        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 600, 350, 85, -1*Math.PI/2, Math.PI/2, Color.BLUE, Color.RED);
 
         //5 3/4 КРУГА
-        Rasterization.drawArc(canvas.getGraphicsContext2D(), 600, 450, 85, 0, 3*Math.PI/2, Color.BLUE, Color.RED);
+        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 600, 450, 85, 0, 3*Math.PI/2, Color.BLUE, Color.RED);
+
+        //кусочек внизу
+        //Rasterization.drawArc(canvas.getGraphicsContext2D(), 650, 500, 85, Math.PI/4, 3*Math.PI/4, Color.BLUE, Color.RED);
+
 
     }
 
